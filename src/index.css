@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ======================================================
+   🎨 Sistema de Design (cores, gradientes, sombras etc.)
+   ====================================================== */
+@layer base {
+  :root {
+    --background: 220 25% 10%;
+    --foreground: 0 0% 98%;
+
+    --card: 220 20% 14%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 220 20% 14%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 262 83% 58%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 142 76% 36%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 220 15% 25%;
+    --muted-foreground: 220 10% 65%;
+
+    --accent: 262 83% 58%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 15% 20%;
+    --input: 220 15% 20%;
+    --ring: 262 83% 58%;
+
+    --radius: 0.75rem;
+
+    /* Gradientes */
+    --gradient-hero: linear-gradient(
+      135deg,
+      hsl(262 83% 58% / 0.2),
+      hsl(142 76% 36% / 0.2)
+    );
+    --gradient-card: linear-gradient(
+      135deg,
+      hsl(220 20% 14%),
+      hsl(220 20% 16%)
+    );
+    --gradient-primary: linear-gradient(
+      135deg,
+      hsl(262 83% 58%),
+      hsl(220 83% 58%)
+    );
+    --gradient-secondary: linear-gradient(
+      135deg,
+      hsl(142 76% 36%),
+      hsl(142 76% 46%)
+    );
+
+    /* Sombras */
+    --shadow-glow: 0 0 40px hsl(262 83% 58% / 0.3);
+    --shadow-card: 0 8px 32px hsl(220 25% 5% / 0.4);
+
+    /* Animações */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Inter", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+/* ======================================================
+   🧭 Compatibilidade — Fix Chrome / Edge / Safari
+   ====================================================== */
+
+/* Força renderização correta de gradientes e transformações */
+html,
+body,
+button,
+.btn,
+a button {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  isolation: isolate;
+  backface-visibility: hidden;
+}
+
+/* Corrige o botão desaparecer no Chrome 140+ */
+button,
+.btn,
+a button {
+  position: relative;
+  z-index: 1;
+  transform-style: preserve-3d;
+  transition: var(--transition-smooth);
+}
+
+/* Suaviza animações de hover no Chrome */
+button:hover,
+.btn:hover,
+a button:hover {
+  filter: brightness(1.05);
+  opacity: 0.95;
+}
+
+/* Adiciona foco visível e acessível */
+button:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+/* Corrige clipping de gradientes e efeitos em alguns navegadores */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Garante que o layout ocupe toda a tela */
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
